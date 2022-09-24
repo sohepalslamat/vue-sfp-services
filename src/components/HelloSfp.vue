@@ -1,10 +1,19 @@
 <template>
-  <div>
-    <button @click="search = search + 1">x++</button>
-    <h2>{{ page }}</h2>
-    <h2>{{ search }}</h2>
-    <h2>{{ page }}</h2>
-    <button @click="page++">fi</button>
+  <div class="form">
+    <label for="search">Search</label>
+    <input id="search" v-model="search" type="text" />
+    <label for="user_id">User Id</label>
+    <input id="user_id" v-model="user_id" type="number" />
+    
+    <div class="pagination">
+      <a @click="page > 1 ? page-- : page=1">&laquo;</a>
+      <a v-for="i in 6" :key="i" @click="page=i" :class="{active: page == i }">{{i}}</a>
+      <a @click="page < 6 ? page++ : page=6">&raquo;</a>
+    </div>
+    <div>
+      <h5>Queries As Object: {{$route.query}}</h5>
+      <h5>Queries As Url: {{queriesAsUrl}}</h5>
+    </div>
   </div>
 </template>
 <script>
@@ -22,12 +31,15 @@ export default defineComponent({
       ...new SfpService(this.$router, this.$route, queries).queries,
     };
   },
-  updated() {
-    const paramObj = this.$route.query;
-    const qs = Object.keys(paramObj)
-      .map((key) => `${key}=${paramObj[key]}`)
-      .join("&");
-    console.log(qs);
+  computed: {
+    queriesAsUrl(){
+      const paramObj = this.$route.query;
+      const qs = Object.keys(paramObj)
+        .map((key) => `${key}=${paramObj[key]}`)
+        .join("&")
+      return qs
+    }
+    
   },
   setup() {
     // const queries = {
@@ -42,3 +54,31 @@ export default defineComponent({
   },
 });
 </script>
+<style>
+.form {
+  display: inline-grid;
+}
+.form > * {
+  margin-bottom: 10px;
+}
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.pagination a.active {
+  background-color: #4caf50;
+  color: white;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+}
+</style>
