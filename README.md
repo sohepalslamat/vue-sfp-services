@@ -1,46 +1,95 @@
-# my-package
+# vue-sfp-services
 
-This template should help get you started developing with Vue 3 in Vite.
+[![license](https://img.shields.io/github/license/LouisMazel/vue-phone-number-input.svg?style=flat-square)](https://github.com/sohepalslamat/s-stepper-vue/blob/main/LICENSE) [![vue 2](https://img.shields.io/badge/vue-2-42b983.svg?style=flat-square)](https://v2.vuejs.org) [![vue 3](https://img.shields.io/badge/vue-3-42b983.svg?style=flat-square)](https://vuejs.org) [![npm](https://img.shields.io/npm/v/s-stepper-vue.svg?style=flat-square)](https://www.npmjs.com/package/vue-sfp-services)
+<!-- [![Codacy grade](https://img.shields.io/codacy/grade/3d15a7c11bfe47c69a2aed93cc67cc29.svg?style=flat-square)](https://www.codacy.com/app/LouisMazel/s-stepper-vue) -->
 
-## Recommended IDE Setup
+> This library used for Vue 2 and Vue 3
+<!-- ![vue-sfp-services](https://raw.githubusercontent.com/sohepalslamat/s-stepper-vue/main/public/s-stepper-vue.gif) -->
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Installation
 
-## Type Support for `.vue` Imports in TS
+### Using yarn
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+```bash 
+yarn add vue-sfp-services
+```
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+### Using npm
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+```bash
+npm i vue-sfp-services
+```
 
-## Customize configuration
+## Usage
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+### ES6 Modules / CommonJS
 
-## Project Setup
 
-```sh
+```html
+<div>
+    <button @click="search=search+1">search++</button>
+    <h2>{{ page }}</h2>
+    <h2>{{ search }}</h2>
+    <h2>{{ user_id }}</h2>
+    <button @click="page++">fi</button>
+  </div>
+```
+```js
+import { SfpService } from "vue-sfp-services";
+
+const queries = {
+      page: 1,
+      search: '',
+      user_id: 1,
+      // .. any data you want 
+    }
+```
+
+```js
+export default {
+  data(){
+    return {
+      ...new SfpService(this.$router, this.$route, queries).queries
+    }
+  }
+}
+```
+```js
+// With composition api 
+setup() {
+    const queries = {
+      page: 1,
+      search: '',
+      user_id: 1,
+      // .. any data you want 
+    }
+
+    const sfp = new SfpService(router, route, queries)
+        
+    return {
+      ...sfp.queries
+    };
+  },
+```
+
+## Contribution
+
+### Project setup
+
+```bash
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Compiles and hot-reloads for development
 
-```sh
+```bash
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+## License
 
-```sh
-npm run build
-```
+This project is licensed under [MIT License](http://en.wikipedia.org/wiki/MIT_License)
 
-### Lint with [ESLint](https://eslint.org/)
+--------------------------------
 
-```sh
-npm run lint
-```
+@Vuango Simply Learn
