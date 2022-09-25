@@ -8,6 +8,7 @@ jobs:
   build_vue:
     runs-on: ubuntu-latest
     name: Build Vue
+    only: "production"
     steps:
     - uses: actions/checkout@v2
     - id: Build-Vue
