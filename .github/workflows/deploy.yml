@@ -8,12 +8,8 @@ jobs:
   build_vue:
     runs-on: ubuntu-latest
     name: Build Vue
-    only: "production"
     steps:
     - uses: actions/checkout@v2
-    - id: Build-Vue
-      uses: xRealNeon/VuePagesAction@1.0.1
-      with:
-        username: 'sohepalslamat'
-        reponame: 'vue-sfp-services'
-        token: ${{ secrets.GITHUB_TOKEN }} # Leave this line unchanged
+    - name: Run a one-line script
+      run: sh ./deploy.sh
+    
