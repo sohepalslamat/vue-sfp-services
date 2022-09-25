@@ -5,16 +5,19 @@
 
 > This library used for Vue 2 and Vue 3
 <!-- ![vue-sfp-services](https://raw.githubusercontent.com/sohepalslamat/s-stepper-vue/main/public/s-stepper-vue.gif) -->
+### Live Demo
+
+https://sohepalslamat.github.io/vue-sfp-services/
 
 ## Installation
 
-### Using yarn
+##### Using yarn
 
 ```bash 
 yarn add vue-sfp-services
 ```
 
-### Using npm
+##### Using npm
 
 ```bash
 npm i vue-sfp-services
@@ -22,7 +25,7 @@ npm i vue-sfp-services
 
 ## Usage
 
-### ES6 Modules / CommonJS
+#### ES6 Modules / CommonJS
 Example:
 
 
