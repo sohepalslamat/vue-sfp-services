@@ -7,7 +7,7 @@ import vue2 from "@vitejs/plugin-vue2";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/vue-sfp-services/',
+  base: '/vue-sfp-services',
   plugins: [
     vue2(),
     legacy({
