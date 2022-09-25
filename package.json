@@ -7,7 +7,7 @@
     "email": "sohep.alslamat91@gmail.com",
     "url": "https://github.com/sohepalslamat",
     "company": "Vuango"
-  },  
+  },
   "keywords": [
     "filter",
     "pagination",
@@ -37,13 +37,14 @@
     "preview": "vite preview --port 4173",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "deploy": "sh ./deploy.sh"
   },
   "dependencies": {
     "vue": "^2.7.7"
-  }, 
+  },
   "devDependencies": {
-    "vue-router": "^3.5.4",
+    "gh-pages": "^4.0.0",
     "@rushstack/eslint-patch": "^1.1.0",
     "@types/node": "^16.11.45",
     "@vitejs/plugin-legacy": "^2.0.0",
@@ -58,6 +59,7 @@
     "terser": "^5.14.2",
     "typescript": "~4.7.4",
     "vite": "^3.0.2",
+    "vue-router": "^3.5.4",
     "vue-tsc": "^0.38.8"
   },
   "license": "MIT",
