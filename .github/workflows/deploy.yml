@@ -1,9 +1,5 @@
 name: Build Vue
-on: 
-  push:
-    branches: [ "production" ]
-  pull_request:
-    branches: [ "production" ]
+on: [push]
 jobs:
   build_vue:
     runs-on: ubuntu-latest
@@ -12,4 +8,9 @@ jobs:
     - uses: actions/checkout@v2
     - name: Run a one-line script
       run: sh ./deploy.sh
-    
+    - id: Build-Vue
+      uses: xRealNeon/VuePagesAction@1.0.1
+      with:
+        username: 'sohepalslamat'
+        reponame: 'vue-sfp-services'
+        token: ${{ secrets.GITHUB_TOKEN }} # Leave this line unchanged
