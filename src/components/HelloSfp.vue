@@ -34,10 +34,10 @@ export default defineComponent({
   computed: {
     queriesAsUrl(){
       const paramObj = this.$route.query;
-      const qString = Object.keys(paramObj)
+      const qs = Object.keys(paramObj)
         .map((key) => `${key}=${paramObj[key]}`)
         .join("&")
-      return qString
+      return qs
     }
     
   },
