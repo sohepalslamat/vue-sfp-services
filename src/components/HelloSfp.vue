@@ -19,7 +19,7 @@
 <script>
 import { defineComponent } from "vue";
 import { SfpService } from "../lib/main";
-// import { SfpService } from "../../dist/my-lib.es";
+// import { SfpService } from "../../dist/vue-sfp-services.es";
 const queries = {
   page: 1,
   search: "",

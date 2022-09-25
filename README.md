@@ -23,15 +23,25 @@ npm i vue-sfp-services
 ## Usage
 
 ### ES6 Modules / CommonJS
+Example:
 
 
 ```html
-<div>
-    <button @click="search=search+1">search++</button>
-    <h2>{{ page }}</h2>
-    <h2>{{ search }}</h2>
-    <h2>{{ user_id }}</h2>
-    <button @click="page++">fi</button>
+<div class="form">
+    <label for="search">Search</label>
+    <input id="search" v-model="search" type="text" />
+    <label for="user_id">User Id</label>
+    <input id="user_id" v-model="user_id" type="number" />
+    
+    <div class="pagination">
+      <a @click="page > 1 ? page-- : page=1">&laquo;</a>
+      <a v-for="i in 6" :key="i" @click="page=i" :class="{active: page == i }">{{i}}</a>
+      <a @click="page < 6 ? page++ : page=6">&raquo;</a>
+    </div>
+    <div>
+      <h5>Queries As Object: {{$route.query}}</h5>
+      <h5>Queries As Url: {{queriesAsUrl}}</h5>
+    </div>
   </div>
 ```
 ```js
@@ -43,9 +53,6 @@ const queries = {
       user_id: 1,
       // .. any data you want 
     }
-```
-
-```js
 export default {
   data(){
     return {
@@ -54,9 +61,14 @@ export default {
   }
 }
 ```
+##### With composition api:
 ```js
-// With composition api 
+import { useRouter, useRoute } from 'vue-router'
+//...
+//..
 setup() {
+    const router = useRouter()
+    const route = useRoute()
     const queries = {
       page: 1,
       search: '',
@@ -72,7 +84,8 @@ setup() {
   },
 ```
 
-## Contribution
+<!-- ## Contribution -->
+----
 
 ### Project setup
 
