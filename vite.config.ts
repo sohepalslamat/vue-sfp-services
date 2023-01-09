@@ -23,7 +23,7 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, "src/lib/main.ts"),
       name: "vue-sfp-services",
-      fileName: (format) => `vue-sfp-services.${format}.js`,
+      fileName: (format) => `vue-sfp-services.${format}.ts`,
     },
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled

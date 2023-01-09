@@ -4,9 +4,9 @@ import { ref, watch } from "vue"
 
 export default class SfpService {
     private _router: any
-    private _queries: object
+    private _queries: {[key:string]:any}
 
-    constructor(router: any, route: any, queries: object) {
+    constructor(router: any, route: any, queries: {[key:string]:any}) {
         this._router = router
        
         const self:{[key:string]:any} = this
@@ -37,7 +37,7 @@ export default class SfpService {
     }
 
     /// fix queries before send
-    private _fixQueriesToSet(queries: object): object {
+    private _fixQueriesToSet(queries: {[key:string]:any}): {[key:string]:any} {
         const x:{[key:string]:any} = {...queries}
         Object.keys(x).forEach(function(key) {
             x[key].value ? x[key] = x[key].value : delete x[key]

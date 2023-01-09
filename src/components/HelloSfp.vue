@@ -1,25 +1,47 @@
 <template>
-  <div class="form">
-    <label for="search">Search</label>
-    <input id="search" v-model="search" type="text" />
-    <label for="user_id">User Id</label>
-    <input id="user_id" v-model="user_id" type="number" />
-    
-    <div class="pagination">
-      <a @click="page > 1 ? page-- : page=1">&laquo;</a>
-      <a v-for="i in 6" :key="i" @click="page=i" :class="{active: page == i }">{{i}}</a>
-      <a @click="page < 6 ? page++ : page=6">&raquo;</a>
-    </div>
-    <div>
-      <h5>Queries As Object: {{$route.query}}</h5>
-      <h5>Queries As Url: {{queriesAsUrl}}</h5>
+  <div>
+    <header style="margin: 5px auto; width: 100px">
+      <a
+        style="font-size: 20px; padding: 1px; margin: 2px"
+        href="https://github.com/sohepalslamat/vue-sfp-services"
+      >
+        <i class="fa fa-github"></i>
+      </a>
+      <a
+        style="font-size: 20px; padding: 1px; margin: 2px"
+        href="https://www.npmjs.com/package/vue-sfp-services"
+      >
+      <img
+          width="30"
+          src="https://user-images.githubusercontent.com/16657091/55263234-8b903300-522d-11e9-9926-44e4b3c17e0a.png"
+          alt="npm logo"
+      />
+      </a>
+    </header>
+    <div class="form">
+      <label for="search">Search</label>
+      <input id="search" v-model="search" type="text" />
+      <label for="user_id">User Id</label>
+      <input id="user_id" v-model="user_id" type="number" />
+
+      <div class="pagination">
+        <a @click="page > 1 ? page-- : (page = 1)">&laquo;</a>
+        <a v-for="i in 6" :key="i" @click="page = i" :class="{ active: page == i }">{{
+          i
+        }}</a>
+        <a @click="page < 6 ? page++ : (page = 6)">&raquo;</a>
+      </div>
+      <div>
+        <h5>Queries As Object: {{ JSON.stringify($route.query) }}</h5>
+        <h5>Queries As Url: {{ queriesAsUrl }}</h5>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import { defineComponent } from "vue";
-import { SfpService } from "../lib/main";
-// import { SfpService } from "../../dist/vue-sfp-services.es";
+// import { SfpService } from "../lib/main";
+import { SfpService } from "../../dist/vue-sfp-services.es";
 const queries = {
   page: 1,
   search: "",
@@ -32,14 +54,13 @@ export default defineComponent({
     };
   },
   computed: {
-    queriesAsUrl(){
+    queriesAsUrl() {
       const paramObj = this.$route.query;
       const qs = Object.keys(paramObj)
         .map((key) => `${key}=${paramObj[key]}`)
-        .join("&")
-      return qs
-    }
-    
+        .join("&");
+      return qs;
+    },
   },
   setup() {
     // const queries = {

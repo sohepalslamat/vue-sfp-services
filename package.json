@@ -1,6 +1,6 @@
 {
   "name": "vue-sfp-services",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "description": "Package allows us to use pagination, search and filter easily made with VueJS",
   "author": {
     "name": "Sohaib Alslamat",
@@ -20,13 +20,13 @@
   "files": [
     "dist/*"
   ],
-  "main": "./dist/vue-sfp-services.umd.js",
-  "module": "./dist/vue-sfp-services.es.js",
-  "browser": "./dist/vue-sfp-services.es.js",
+  "main": "./dist/vue-sfp-services.umd.ts",
+  "module": "./dist/vue-sfp-services.es.ts",
+  "browser": "./dist/vue-sfp-services.es.ts",
   "exports": {
     ".": {
-      "import": "./dist/vue-sfp-services.es.js",
-      "require": "./dist/vue-sfp-services.umd.js"
+      "import": "./dist/vue-sfp-services.es.ts",
+      "require": "./dist/vue-sfp-services.umd.ts"
     }
   },
   "private": false,
