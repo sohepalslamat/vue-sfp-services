@@ -2,6 +2,7 @@ import { fileURLToPath, URL } from "node:url";
 import path from "path";
 
 import { defineConfig } from "vite";
+import dts from "vite-plugin-dts";
 // import legacy from "@vitejs/plugin-legacy";
 import vue2 from "@vitejs/plugin-vue2";
 
@@ -13,6 +14,9 @@ export default defineConfig({
     //   targets: ["ie >= 11"],
     //   additionalLegacyPolyfills: ["regenerator-runtime/runtime"],
     // }),
+    dts({
+      insertTypesEntry: true,
+    }),
   ],
   resolve: {
     alias: {
@@ -23,7 +27,7 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, "src/lib/main.ts"),
       name: "vue-sfp-services",
-      fileName: (format) => `vue-sfp-services.${format}.ts`,
+      fileName: (format) => `vue-sfp-services.${format}.js`,
     },
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled

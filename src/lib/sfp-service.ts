@@ -32,7 +32,7 @@ export default class SfpService {
     }
 
     /// set queries in route in url
-    private _setQuery(queries: object) {
+    private _setQuery(queries: {[key:string]:any}) {
         this._router.replace({ path: '', query: { ...this._fixQueriesToSet(queries) } })
     }
 
