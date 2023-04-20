@@ -1,46 +1,43 @@
-/* eslint-disable @typescript-eslint/no-this-alias */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ref, watch } from "vue"
+import { computed, watch } from "vue"
 
 export default class SfpService {
     private _router: any
-    private _queries: {[key:string]:any}
+    private routeQueries: {[key:string]:any}
 
     constructor(router: any, route: any, queries: {[key:string]:any}) {
         this._router = router
-       
-        const self:{[key:string]:any} = this
-        
-        const initQueries = () => {
-            const returnQueries: {[key:string]:any} = {}
-            for (const [key,query] of Object.entries(queries)) {
-                self[key] = ref(route.query[key] ? route.query[key] : query)
-                watch(self[key], () =>{
-                    this._setQuery(this._queries)
-                })
-                returnQueries[key] = self[key]
-            }
-            return returnQueries
-        }
+        this.routeQueries = computed(()=>{
+            return route.query
+        })
 
-        this._queries = initQueries()
-        
-    }
-    /// return queries as data
-    get queries(): any {
-        return this._queries
-    }
+        this._getQueryFromUrl(queries,this.routeQueries.value)
 
+        watch(this.routeQueries,(val)=>{
+            this._getQueryFromUrl(queries,val)
+        })
+        watch(queries, (val)=>{
+            this._setQuery(val)
+        })
+    }
+    
     /// set queries in route in url
     private _setQuery(queries: {[key:string]:any}) {
         this._router.replace({ path: '', query: { ...this._fixQueriesToSet(queries) } })
     }
 
+    /// get queries from url
+    private _getQueryFromUrl(queries: {[key:string]:any}, routeQueries: {[key:string]:any}) {
+        for (const [key,query] of Object.entries(queries)) {
+            queries[key] = routeQueries[key] ? routeQueries[key] : query
+        }
+    }
+
     /// fix queries before send
-    private _fixQueriesToSet(queries: {[key:string]:any}): {[key:string]:any} {
+    private _fixQueriesToSet(queries: {[key:string]:any}) {
         const x:{[key:string]:any} = {...queries}
         Object.keys(x).forEach(function(key) {
-            x[key].value ? x[key] = x[key].value : delete x[key]
+            if(!x[key]) delete x[key]
           })
         
         return x

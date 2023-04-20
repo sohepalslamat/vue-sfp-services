@@ -20,16 +20,16 @@
     </header>
     <div class="form">
       <label for="search">Search</label>
-      <input id="search" v-model="search" type="text" />
+      <input id="search" v-model="queries.search" type="text" />
       <label for="user_id">User Id</label>
-      <input id="user_id" v-model="user_id" type="number" />
+      <input id="user_id" v-model="queries.user_id" type="number" />
 
       <div class="pagination">
-        <a @click="page > 1 ? page-- : (page = 1)">&laquo;</a>
-        <a v-for="i in 6" :key="i" @click="page = i" :class="{ active: page == i }">{{
+        <a @click="queries.page > 1 ? queries.page-- : (queries.page = 1)">&laquo;</a>
+        <a v-for="i in 6" :key="i" @click="queries.page = i" :class="{ active: queries.page == i }">{{
           i
         }}</a>
-        <a @click="page < 6 ? page++ : (page = 6)">&raquo;</a>
+        <a @click="queries.page < 6 ? queries.page++ : (queries.page = 6)">&raquo;</a>
       </div>
       <div>
         <h5>Queries As Object: {{ JSON.stringify($route.query) }}</h5>
@@ -40,18 +40,21 @@
 </template>
 <script>
 import { defineComponent } from "vue";
-// import { SfpService } from "../lib/main";
-import { SfpService } from "../../dist/vue-sfp-services.es";
-const queries = {
-  page: 1,
-  search: "",
-  user_id: 1,
-};
+import { SfpService } from "../lib/main";
+// import { SfpService } from "../../dist/vue-sfp-services.es";
+
 export default defineComponent({
   data() {
     return {
-      ...new SfpService(this.$router, this.$route, queries).queries,
+      queries:{
+        page: 1,
+        search: "",
+        user_id: 1,
+      }
     };
+  },
+  created(){
+    new SfpService(this.$router, this.$route, this.queries)
   },
   computed: {
     queriesAsUrl() {
@@ -61,17 +64,6 @@ export default defineComponent({
         .join("&");
       return qs;
     },
-  },
-  setup() {
-    // const queries = {
-    //   page: 1,
-    //   search: '',
-    //   user_id: 1
-    // }
-    // const sfp = new SfpService(router, route, queries)
-    // return {
-    //   ...sfp.queries
-    // };
   },
 });
 </script>

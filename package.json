@@ -1,6 +1,6 @@
 {
   "name": "vue-sfp-services",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Package allows us to use pagination, search and filter easily made with VueJS",
   "author": {
     "name": "Sohaib Alslamat",
