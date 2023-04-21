@@ -29,7 +29,9 @@ export default class SfpService {
     /// get queries from url
     private _getQueryFromUrl(queries: {[key:string]:any}, routeQueries: {[key:string]:any}) {
         for (const [key,query] of Object.entries(queries)) {
-            queries[key] = routeQueries[key] ? routeQueries[key] : query
+            if(queries[key] != routeQueries[key]){
+                queries[key] = routeQueries[key] ? routeQueries[key] : query
+            }
         }
     }
 
