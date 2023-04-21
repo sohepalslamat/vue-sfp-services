@@ -68,8 +68,5 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sohepalslamat/vue-sfp-services"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
   }
 }
