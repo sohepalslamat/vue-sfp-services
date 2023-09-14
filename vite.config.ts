@@ -4,12 +4,12 @@ import path from "path";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 // import legacy from "@vitejs/plugin-legacy";
-import vue2 from "@vitejs/plugin-vue2";
+import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vue2(),
+    vue(),
     // legacy({
     //   targets: ["ie >= 11"],
     //   additionalLegacyPolyfills: ["regenerator-runtime/runtime"],
@@ -23,9 +23,12 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
+  optimizeDeps: {
+    include: ["vue-router", "vue"],
+  },
   build: {
     lib: {
-      entry: path.resolve(__dirname, "src/lib/main.ts"),
+      entry: path.resolve(__dirname, "src/lib/sfp-service.ts"),
       name: "vue-sfp-services",
       fileName: (format) => `vue-sfp-services.${format}.js`,
     },

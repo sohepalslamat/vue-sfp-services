@@ -1,47 +1,55 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { computed, watch } from "vue"
 
-export default class SfpService {
-    private _router: any
-    private routeQueries: {[key:string]:any}
+import type { RouteLocationNormalizedLoaded, Router } from "vue-router";
+import { computed, watch, reactive } from 'vue'
 
-    constructor(router: any, route: any, queries: {[key:string]:any}) {
-        this._router = router
-        this.routeQueries = computed(()=>{
-            return route.query
-        })
-
-        this._getQueryFromUrl(queries,this.routeQueries.value)
-
-        watch(this.routeQueries,(val)=>{
-            this._getQueryFromUrl(queries,val)
-        })
-        watch(queries, (val)=>{
-            this._setQuery(val)
-        })
-    }
+const _fixQueriesToSet = (queries: {[key:string]:any}) => {
+    const x:{[key:string]:any} = {...queries}
+    Object.keys(x).forEach(function(key) {
+        if(!x[key]) delete x[key]
+      })
     
-    /// set queries in route in url
-    private _setQuery(queries: {[key:string]:any}) {
-        this._router.replace({ path: '', query: { ...this._fixQueriesToSet(queries) } })
-    }
+    return x
+} 
 
-    /// get queries from url
-    private _getQueryFromUrl(queries: {[key:string]:any}, routeQueries: {[key:string]:any}) {
-        for (const [key,query] of Object.entries(queries)) {
-            if(queries[key] != routeQueries[key]){
-                queries[key] = routeQueries[key] ? routeQueries[key] : query
+/// set queries in route
+const _setQuery = async(queries: {[key:string]:any}, router: any)=> {
+    await router.replace({ path: '', query: { ..._fixQueriesToSet(queries) } })
+}
+
+const useQueryHandler = (router: Router, route: RouteLocationNormalizedLoaded, queries: {[key:string]:any}) =>{
+    const routeQueries = computed(()=>{
+        return route.query
+    })
+
+    const pushToUrl = async(q:{[key:string]:any}) => {
+        const queries: { [key: string]: any } = { ...route.query };
+        for (const [key,value] of Object.entries(q)) {
+            if (value !== "" && value !== null ) {
+                queries[key] = value;
+            }
+            else {
+                if(route.query[key]) {
+                    delete queries[key]
+                }
             }
         }
-    }
-
-    /// fix queries before send
-    private _fixQueriesToSet(queries: {[key:string]:any}) {
-        const x:{[key:string]:any} = {...queries}
-        Object.keys(x).forEach(function(key) {
-            if(!x[key]) delete x[key]
-          })
-        
-        return x
-    } 
+        await router.replace({ path: '', query: queries })
+    };
+    
+    const _getQueryFromUrl = computed(() => {
+        const nQueries = reactive({...queries})
+        for (const [key,query] of Object.entries(nQueries)) {
+            if(nQueries[key] != routeQueries.value[key]){
+                nQueries[key] = routeQueries.value[key] ? routeQueries.value[key] : query
+            }
+        }
+        return nQueries
+    })
+    watch(queries, async(val)=>{
+        await _setQuery(val, router)
+    })
+    return {sfpQueries:_getQueryFromUrl, pushToUrl}
 }
+
+
+export {useQueryHandler}
